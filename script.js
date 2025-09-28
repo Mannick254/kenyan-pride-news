@@ -145,7 +145,7 @@ function deleteStory(key) {
 async function publishStoryToGitHub(story) {
   const token = localStorage.getItem("githubToken");
   if (!token) {
-    alert("❌ GitHub token not found. Set it in localStorage before publishing.");
+    alert("❌ GitHub token not found. Please set it in your browser console using:\n\nlocalStorage.setItem(\"githubToken\", \"your-token-here\")");
     return;
   }
 
