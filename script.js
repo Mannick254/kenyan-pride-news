@@ -45,7 +45,6 @@ function filterNews(category) {
   }
 }
 
-renderNews(newsItems);
 function searchNews() {
   const query = document.getElementById("searchInput").value.toLowerCase();
   const filtered = newsItems.filter(item =>
@@ -56,6 +55,7 @@ function searchNews() {
   );
   renderNews(filtered);
 }
+
 document.getElementById("storyForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -71,13 +71,12 @@ document.getElementById("storyForm").addEventListener("submit", function (e) {
     timestamp: new Date().toISOString()
   };
 
-  // Simple AES-like encryption placeholder
-  const encrypted = btoa(JSON.stringify(story)); // Replace with real AES later
-
+  const encrypted = btoa(JSON.stringify(story));
   localStorage.setItem(`story-${Date.now()}`, encrypted);
   alert("✅ Story submitted! Awaiting admin review.");
   this.reset();
 });
+
 function loadSubmissions() {
   const list = document.getElementById("submissionList");
   list.innerHTML = "";
@@ -85,7 +84,7 @@ function loadSubmissions() {
   Object.keys(localStorage).forEach(key => {
     if (key.startsWith("story-")) {
       const encrypted = localStorage.getItem(key);
-      const decrypted = JSON.parse(atob(encrypted)); // Replace with AES later
+      const decrypted = JSON.parse(atob(encrypted));
 
       const div = document.createElement("div");
       div.className = "submission";
@@ -104,13 +103,19 @@ function loadSubmissions() {
 function publishStory(key) {
   const encrypted = localStorage.getItem(key);
   const story = JSON.parse(atob(encrypted));
-  story.impact = "community"; // Mark as published
+  story.impact = "community";
 
-  newsItems.push(story);
-  renderNews(newsItems);
-  alert("✅ Story published to public feed.");
-  localStorage.removeItem(key);
-  loadSubmissions();
+  publishStoryToGitHub(story)
+    .then(() => {
+      alert("✅ Story published to GitHub!");
+      localStorage.removeItem(key);
+      loadSubmissions();
+      loadGlobalStories();
+    })
+    .catch(err => {
+      console.error("GitHub publish error:", err);
+      alert("❌ Failed to publish story to GitHub.");
+    });
 }
 
 function deleteStory(key) {
@@ -118,3 +123,60 @@ function deleteStory(key) {
   alert("🗑️ Story deleted.");
   loadSubmissions();
 }
+
+async function publishStoryToGitHub(story) {
+  const token = "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";
+  const repo = "mannick254/kenyan-pride-news";
+  const path = "stories.json";
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+  const response = await fetch(apiUrl, {
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: "application/vnd.github.v3+json"
+    }
+  });
+
+  const data = await response.json();
+  const sha = data.sha;
+  const existingContent = JSON.parse(atob(data.content));
+
+  existingContent.push(story);
+
+  const updatedContent = btoa(JSON.stringify(existingContent, null, 2));
+  const commitMessage = `Publish story: ${story.title}`;
+
+  await fetch(apiUrl, {
+    method: "PUT",
+    headers: {
+      Authorization: `token ${token}`,
+      Accept: "application/vnd.github.v3+json"
+    },
+    body: JSON.stringify({
+      message: commitMessage,
+      content: updatedContent,
+      sha: sha
+    })
+  });
+}
+
+async function loadGlobalStories() {
+  const url = "https://raw.githubusercontent.com/mannick254/kenyan-pride-news/master/stories.json";
+
+  try {
+    const response = await fetch(url);
+    const stories = await response.json();
+
+    const newStories = stories.filter(story =>
+      !newsItems.some(existing => existing.title === story.title)
+    );
+
+    newsItems.push(...newStories);
+    renderNews(newsItems);
+  } catch (err) {
+    console.error("Failed to load global stories:", err);
+  }
+}
+
+renderNews(newsItems);
+loadGlobalStories();
