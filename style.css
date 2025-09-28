@@ -26,13 +26,21 @@ button {
   color: #000;
   cursor: pointer;
   box-shadow: 0 0 10px #ffcc00;
+  transition: transform 0.2s ease;
 }
+button:hover {
+  transform: scale(1.05);
+}
+
 #filters {
   margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
 #filters button {
-  margin: 0.5rem;
   padding: 0.75rem 1.5rem;
   font-size: 0.9rem;
   background: #222;
@@ -44,8 +52,8 @@ button {
 
 #news-feed {
   padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
 }
 
@@ -55,6 +63,12 @@ button {
   border-left: 6px solid #ffcc00;
   box-shadow: 0 0 10px #ffcc00;
   text-align: left;
+  animation: fadeIn 0.8s ease;
+  transition: box-shadow 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .news-item h2 {
@@ -65,6 +79,7 @@ button {
 .news-item p {
   margin-bottom: 0.5rem;
 }
+
 #search-bar {
   margin: 2rem;
 }
@@ -90,6 +105,7 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
+
 #submit {
   padding: 2rem;
   background: #222;
@@ -124,6 +140,7 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
+
 #admin-panel {
   padding: 2rem;
   background: #111;
@@ -160,4 +177,26 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* Impact-based glow upgrades */
+.news-item[data-impact="urgent"] {
+  border-left: 5px solid crimson;
+  background: #2a0000;
+  box-shadow: 0 0 15px crimson;
+}
+.news-item[data-impact="hopeful"] {
+  border-left: 5px solid limegreen;
+  background: #002a00;
+  box-shadow: 0 0 15px limegreen;
+}
+.news-item[data-impact="controversial"] {
+  border-left: 5px solid orange;
+  background: #2a1a00;
+  box-shadow: 0 0 15px orange;
+}
+.news-item[data-impact="community"] {
+  border-left: 5px solid royalblue;
+  background: #001a2a;
+  box-shadow: 0 0 15px royalblue;
 }
