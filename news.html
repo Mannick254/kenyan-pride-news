@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Latest News | Kenyan Pride</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+
+</head>
+<body>
+  <header class="hero">
+    <h1>📰 Latest News Updates</h1>
+    <p>Stories shaping Kenyan lives—real-time, emotional, unforgettable.</p>
+  </header>
+
+  <section id="filters">
+    <button onclick="filterNews('all')">🌍 All</button>
+    <button onclick="filterNews('politics')">🗳️ Politics</button>
+    <button onclick="filterNews('culture')">🎭 Culture</button>
+    <button onclick="filterNews('economy')">💰 Economy</button>
+    <button onclick="filterNews('health')">🩺 Health</button>
+    <button onclick="filterNews('education')">📚 Education</button>
+    <button onclick="filterNews('climate')">🌦️ Climate</button>
+  </section>
+  <section id="search-bar">
+  <input type="text" id="searchInput" placeholder="Search news by keyword..." />
+  <button onclick="searchNews()">🔍 Search</button>
+</section>
+
+
+  <main id="news-feed">
+    <!-- News items will be injected here -->
+  </main>
+
+<section id="submit">
+  <h2>Submit a Story</h2>
+  <form id="storyForm">
+    <input type="text" id="storyTitle" placeholder="Story Title" required />
+    <textarea id="storyContent" placeholder="Your story..." required></textarea>
+    <select id="storyCategory">
+      <option value="politics">Politics</option>
+      <option value="culture">Culture</option>
+      <option value="economy">Economy</option>
+      <option value="health">Health</option>
+      <option value="education">Education</option>
+      <option value="climate">Climate</option>
+    </select>
+    <button type="submit">📤 Submit</button>
+  </form>
+</section>
+<section id="admin-panel">
+  <h2>Admin Review Panel</h2>
+  <button onclick="loadSubmissions()">🔓 Load Guest Submissions</button>
+  <div id="submissionList"></div>
+</section>
+
+
+  <script src="script.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("✅ Service Worker registered"))
+      .catch(err => console.error("Service Worker error:", err));
+  }
+</script>
+
+</body>
+</html>

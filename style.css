@@ -27,3 +27,137 @@ button {
   cursor: pointer;
   box-shadow: 0 0 10px #ffcc00;
 }
+#filters {
+  margin: 2rem 0;
+}
+
+#filters button {
+  margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  background: #222;
+  color: #fff;
+  border: 1px solid #ffcc00;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#news-feed {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.news-item {
+  background: #1a1a1a;
+  padding: 1.5rem;
+  border-left: 6px solid #ffcc00;
+  box-shadow: 0 0 10px #ffcc00;
+  text-align: left;
+}
+
+.news-item h2 {
+  margin-top: 0;
+  color: #ffcc00;
+}
+
+.news-item p {
+  margin-bottom: 0.5rem;
+}
+#search-bar {
+  margin: 2rem;
+}
+
+#searchInput {
+  padding: 0.75rem;
+  width: 60%;
+  max-width: 400px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ffcc00;
+  background: #222;
+  color: #fff;
+}
+
+#search-bar button {
+  padding: 0.75rem 1.5rem;
+  margin-left: 1rem;
+  font-size: 1rem;
+  background: #ffcc00;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#submit {
+  padding: 2rem;
+  background: #222;
+  color: #fff;
+}
+
+#storyForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+#storyForm input,
+#storyForm textarea,
+#storyForm select {
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ffcc00;
+  background: #111;
+  color: #fff;
+}
+
+#storyForm button {
+  padding: 1rem;
+  font-size: 1rem;
+  background: #ffcc00;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#admin-panel {
+  padding: 2rem;
+  background: #111;
+  color: #fff;
+}
+
+#submissionList {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.submission {
+  background: #222;
+  padding: 1rem;
+  border-left: 4px solid #ffcc00;
+}
+
+.submission h3 {
+  margin: 0;
+  color: #ffcc00;
+}
+
+.submission p {
+  margin: 0.5rem 0;
+}
+
+.submission button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #ffcc00;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

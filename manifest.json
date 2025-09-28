@@ -1,0 +1,21 @@
+{
+  "name": "Kenyan Pride News",
+  "short_name": "PrideNews",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#ffcc00",
+  "description": "A cinematic, searchable archive spotlighting real-time stories that shape Kenyan lives.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
